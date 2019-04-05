@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class PaymentMode {
 	@Id
-	@Column(columnDefinition="CHAR(32)")
+	@Column(columnDefinition="CHAR(36)")
 	private String id;
 	private String mode;
 	

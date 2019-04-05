@@ -6,20 +6,22 @@ import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Transaction {
 	@Id
-	@Column(columnDefinition="CHAR(32)")
+	@Column(columnDefinition="CHAR(36)")
 	private String id;
 	private String type;
 	private BigDecimal value;
-	@DateTimeFormat
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Calendar date;
 	private String category;
 	private String paymentMode;
+	private boolean active;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Calendar dateModified;
 	
 	public String getId() {
 		return id;
@@ -56,5 +58,30 @@ public class Transaction {
 	}
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
+	}
+	
+	public boolean getActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	public Calendar getDateModified() {
+		return dateModified;
+	}
+	
+	public void setDateModified(Calendar dateModified) {
+		this.dateModified = dateModified;
+	}
+	
+	public void modified() {
+		this.dateModified = Calendar.getInstance();
+	}
+				
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", type=" + type + ", value=" + value + ", date=" + date + ", category="
+				+ category + ", paymentMode=" + paymentMode + "]";
 	}
 }
